@@ -7,16 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class WelcomeController {
-	
-	
-	@Autowired
+
+	@Autowired 
 	SayHello Hello;
 	
 	@RequestMapping("/welcome")
 	public String Welcome() {
 		return Hello.message();
 	}
-	
 }
 
 @Component
