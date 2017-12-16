@@ -8,6 +8,6 @@ public class Welcome {
 
 	@RequestMapping("/welcome")
 	public String showMessgae() {
-		return "Hello Bloody Fucking World";
+		return "This one is also working";
 	}
 }
