@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,12 +34,15 @@ public class SurveyController {
 	        return surveyService.retrieveQuestion(surveyId, questionId);
 	    }
 	@PostMapping("/surveys/{surveyId}/questions")
-	public List<Question>addQuestionToSurvey(@PathVariable String surveyId, @RequestBody Question newQuestion){
+	public ResponseEntity<Void>addQuestionToSurvey(@PathVariable String surveyId, @RequestBody Question newQuestion){
 		
 		//Adding the newQuestion to the questions 
 		Question question = surveyService.addQuestion(surveyId, newQuestion);
 		
-		
+		if (question == null) {
+            return ResponseEntity.noContent().build();
+        }
+		 
 		//After the resource is created we should have a new URI for it
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(question.getId()).toUri();
 		
