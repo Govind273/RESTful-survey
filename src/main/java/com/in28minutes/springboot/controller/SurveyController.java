@@ -1,12 +1,17 @@
 package com.in28minutes.springboot.controller;
 
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.in28minutes.springboot.service.SurveyService;
 import com.in28minutes.springboot.model.Question;
@@ -27,4 +32,19 @@ public class SurveyController {
 	  public Question retrieveQuestion(@PathVariable String surveyId, @PathVariable String questionId) {
 	        return surveyService.retrieveQuestion(surveyId, questionId);
 	    }
+	@PostMapping("/surveys/{surveyId}/questions")
+	public List<Question>addQuestionToSurvey(@PathVariable String surveyId, @RequestBody Question newQuestion){
+		
+		//Adding the newQuestion to the questions 
+		Question question = surveyService.addQuestion(surveyId, newQuestion);
+		
+		
+		//After the resource is created we should have a new URI for it
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(question.getId()).toUri();
+		
+		//It should send a response back when resource is created
+		return ResponseEntity.created(location).build();
+		
+		
+	}
 }
