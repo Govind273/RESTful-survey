@@ -1,16 +1,21 @@
 package com.in28minutes.springboot.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.in28minutes.springboot.service.WelcomeService;
+
 @RestController
 public class Welcome {
 
-	@Value("${welcome.message}")
-	private String welcomeMessage;
+	@Autowired
+	private WelcomeService service;
+	
+	
 	@RequestMapping("/welcome")
 	public String showMessgae() {
-		return welcomeMessage;
+		return service.retreivewelcomeMessage();
 	}
 }
