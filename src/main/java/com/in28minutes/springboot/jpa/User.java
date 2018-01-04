@@ -14,6 +14,15 @@ public class User {
 	private int age;
 	private String role;
 	
+	protected User() {
+		
+	}
+	public User(String name, int age, String role) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.role = role;
+	}
 	public String getName() {
 		return name;
 	}
