@@ -18,17 +18,13 @@ public class UserCommandLineRunner implements CommandLineRunner{
 		repository.save(new User("Rohit",12,"Admin"));
 		repository.save(new User("Rahul",15,"Employee"));
 		repository.save(new User("Rohan",22,"Admin"));
-		repository.save(new User("Roshi",28,"Employee"));
+		
 		
 		for(User user: repository.findAll()) {
 			log.info(user.toString());
 		}
 		
-		log.info("Names of People are");
-		log.info(" - - - - - - - - ");
-		for(User user: repository.findByName("Rohit")) {
-			log.info(user.toString());
-		}
+		
 		
 	}
 
